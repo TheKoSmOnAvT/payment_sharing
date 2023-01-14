@@ -1,18 +1,21 @@
-package com.paymentSystem.paymentSharing.Controller;
+package com.paymentSystem.paymentSharing.Model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import javax.persistence.Column;
-import java.util.Optional;
+
 
 @AllArgsConstructor
-public class USERS1 {
+@Getter
+public class User {
     @Column(name = "id")
-    public Long id;
+    private Integer id;
     @Column(name = "FIRST_NAME")
-    public String fnmae;
+    private String firstName;
     @Column(name = "SECOND_NAME")
-    public Optional<String> sname;
+    private String secondName;
     @Column(name = "TELEGRAM_ID")
-    public Optional<Long> telegram;
+    private Long telegramId;
 }
+
