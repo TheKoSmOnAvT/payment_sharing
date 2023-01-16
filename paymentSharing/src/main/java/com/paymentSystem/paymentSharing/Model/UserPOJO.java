@@ -8,9 +8,9 @@ import javax.persistence.Column;
 
 @AllArgsConstructor
 @Getter
-public class User {
+public class UserPOJO {
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Column(name = "FIRST_NAME")
     private String firstName;
     @Column(name = "SECOND_NAME")

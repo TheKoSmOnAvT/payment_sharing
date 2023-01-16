@@ -2,13 +2,13 @@ package com.paymentSystem.paymentSharing.Repository;
 
 import com.paymentSystem.paymentSharing.Exception.InsertException;
 import com.paymentSystem.paymentSharing.Exception.UpdateException;
-import com.paymentSystem.paymentSharing.Model.User;
-import jooq.generated.tables.Users;
+import com.paymentSystem.paymentSharing.Model.UserPOJO;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static jooq.generated.tables.Users.USERS;
 
 @Repository
 public class UserRepository {
@@ -19,36 +19,36 @@ public class UserRepository {
         this.context = context;
     }
 
-    public List<User> getUsers() {
-        return context.selectFrom(Users.USERS).fetch().into(User.class);
+    public List<UserPOJO> getUsers() {
+        return context.selectFrom(USERS).fetch().into(UserPOJO.class);
     }
 
-    public User addUser(String firstName, String secondName, Long telegramId) throws InsertException {
+    public UserPOJO addUser(String firstName, String secondName, Long telegramId) throws InsertException {
         return context
-                .insertInto(Users.USERS)
-                .set(Users.USERS.FIRST_NAME, firstName)
-                .set(Users.USERS.SECOND_NAME, secondName)
-                .set(Users.USERS.TELEGRAM_ID, telegramId)
+                .insertInto(USERS)
+                .set(USERS.FIRST_NAME, firstName)
+                .set(USERS.SECOND_NAME, secondName)
+                .set(USERS.TELEGRAM_ID, telegramId)
                 .returning()
                 .fetchOptional()
                 .orElseThrow(() -> new InsertException("Error inserting entity: " + firstName))
-                .into(User.class);
+                .into(UserPOJO.class);
     }
 
-    public User updateUser(User user) throws UpdateException {
+    public UserPOJO updateUser(UserPOJO user) throws UpdateException {
         return context
-                .update(Users.USERS)
-                .set(context.newRecord(Users.USERS, user))
-                .where(Users.USERS.ID.eq(user.getId()))
+                .update(USERS)
+                .set(context.newRecord(USERS, user))
+                .where(USERS.ID.eq(user.getId()))
                 .returning()
                 .fetchOptional()
                 .orElseThrow(() -> new UpdateException("Error updating entity: " + user.getId()))
-                .into(User.class);
+                .into(UserPOJO.class);
     }
 
-    public boolean deleteUser(Integer id){
+    public boolean deleteUser(Long id){
         return context
-                .delete(Users.USERS)
-                .where(Users.USERS.ID.eq(id)).execute() == 1;
+                .delete(USERS)
+                .where(USERS.ID.eq(id)).execute() == 1;
     }
 }

@@ -2,9 +2,8 @@ package com.paymentSystem.paymentSharing.Service;
 
 import com.paymentSystem.paymentSharing.Exception.InsertException;
 import com.paymentSystem.paymentSharing.Exception.UpdateException;
-import com.paymentSystem.paymentSharing.Model.User;
+import com.paymentSystem.paymentSharing.Model.UserPOJO;
 import com.paymentSystem.paymentSharing.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,19 +17,19 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getUsers() {
+    public List<UserPOJO> getUsers() {
         return userRepository.getUsers();
     }
 
-    public User addUser(String firstName, String secondName, Long telegramId) throws InsertException {
+    public UserPOJO addUser(String firstName, String secondName, Long telegramId) throws InsertException {
        return userRepository.addUser(firstName,secondName,telegramId);
     }
 
-    public User updateUser(User user) throws UpdateException {
+    public UserPOJO updateUser(UserPOJO user) throws UpdateException {
         return userRepository.updateUser(user);
     }
 
-    public boolean deleteUser(Integer id) {
+    public boolean deleteUser(Long id) {
         return userRepository.deleteUser(id);
     }
 }

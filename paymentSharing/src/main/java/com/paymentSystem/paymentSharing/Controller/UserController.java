@@ -2,7 +2,7 @@ package com.paymentSystem.paymentSharing.Controller;
 
 import com.paymentSystem.paymentSharing.Exception.InsertException;
 import com.paymentSystem.paymentSharing.Exception.UpdateException;
-import com.paymentSystem.paymentSharing.Model.User;
+import com.paymentSystem.paymentSharing.Model.UserPOJO;
 import com.paymentSystem.paymentSharing.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,22 +19,22 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getList() {
+    public List<UserPOJO> getList() {
         return userService.getUsers();
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) throws InsertException {
+    public UserPOJO addUser(@RequestBody UserPOJO user) throws InsertException {
         return userService.addUser(user.getFirstName(), user.getSecondName(), user.getTelegramId() );
     }
 
     @PutMapping
-    public User updateUser(@RequestBody User user) throws UpdateException {
+    public UserPOJO updateUser(@RequestBody UserPOJO user) throws UpdateException {
         return userService.updateUser(user);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteUser(@PathVariable Integer id){
+    public boolean deleteUser(@PathVariable Long id){
         return userService.deleteUser(id);
     }
 }

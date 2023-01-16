@@ -2,6 +2,7 @@ package com.paymentSystem.paymentSharing.Controller;
 
 import com.paymentSystem.paymentSharing.Exception.BaseException;
 import com.paymentSystem.paymentSharing.Exception.InsertException;
+import com.paymentSystem.paymentSharing.Exception.NotFoundException;
 import com.paymentSystem.paymentSharing.Exception.UpdateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,11 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(InsertException.class)
     public ResponseEntity<?> insert(BaseException e) {
         return buildExceptionResponse(INTERNAL_SERVER_ERROR, e);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> notFound(BaseException e) {
+        return buildExceptionResponse(NOT_FOUND, e);
     }
 
     @ExceptionHandler(UpdateException.class)

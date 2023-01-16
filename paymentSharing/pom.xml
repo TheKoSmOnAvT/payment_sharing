@@ -126,7 +126,7 @@
 							<!-- структура пакетов относительно основной директории -->
 							<packageName>jooq.generated</packageName>
 							<!-- основная директория. Лучше хранить в target. -->
-							<directory>target/generated-sources/entity</directory>
+							<directory>src/main/java/com/paymentSystem/paymentSharing/jooqGenerated/</directory>
 						</target>
 					</generator>
 				</configuration>
