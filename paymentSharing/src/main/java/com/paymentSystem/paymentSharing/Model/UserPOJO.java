@@ -1,5 +1,6 @@
 package com.paymentSystem.paymentSharing.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -16,6 +17,7 @@ public class UserPOJO {
     @Column(name = "SECOND_NAME")
     private String secondName;
     @Column(name = "TELEGRAM_ID")
+    @JsonIgnore
     private Long telegramId;
 }
 

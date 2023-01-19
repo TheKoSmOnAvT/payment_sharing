@@ -1,13 +1,15 @@
 package com.paymentSystem.paymentSharing.Model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.persistence.Column;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class ItemsPaymentPOJO {
+public class ItemsWithUsersPaymentPOJO {
     @Column(name = "ID")
     private Long id;
 
@@ -19,4 +21,7 @@ public class ItemsPaymentPOJO {
 
     @Column(name = "COST")
     private Double cost;
+
+    @Column(name = "users")
+    private List<Long> usersId;
 }

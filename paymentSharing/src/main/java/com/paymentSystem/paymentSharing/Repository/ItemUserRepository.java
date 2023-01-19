@@ -21,19 +21,27 @@ public class ItemUserRepository {
     public List<ItemsUsersPOJO> getItemsUsers() {
         return context.selectFrom(ItemsUsers.ITEMS_USERS).fetch().into(ItemsUsersPOJO.class);
     }
+
     public List<ItemsUsersPOJO> getItemsUserByPaymentId(Long id) {
-        return context.selectFrom(ItemsUsers.ITEMS_USERS).where(ItemsUsers.ITEMS_USERS.ID_PAYMENT.eq(id)).fetch().into(ItemsUsersPOJO.class);
+        return context.selectFrom(ItemsUsers.ITEMS_USERS).where(ItemsUsers.ITEMS_USERS.ID_ITEM.eq(id)).fetch().into(ItemsUsersPOJO.class);
     }
 
-    public ItemsUsersPOJO addItemUser(Long paymentId, Long userId) throws InsertException {
+    public ItemsUsersPOJO addItemUser(Long itemID, Long userId) throws InsertException {
         return context
                 .insertInto(jooq.generated.tables.ItemsPayment.ITEMS_PAYMENT)
-                .set(ItemsUsers.ITEMS_USERS.ID_PAYMENT, paymentId)
+                .set(ItemsUsers.ITEMS_USERS.ID_ITEM, itemID)
                 .set(ItemsUsers.ITEMS_USERS.USER_ID, userId)
                 .returning()
                 .fetchOptional()
-                .orElseThrow(() -> new InsertException("Error inserting entity: " + paymentId))
+                .orElseThrow(() -> new InsertException("Error inserting entity: " + itemID))
                 .into(ItemsUsersPOJO.class);
+    }
+
+    public boolean addItemUsers(List<ItemsUsersPOJO> items) throws InsertException {
+        return context
+                .insertInto(jooq.generated.tables.ItemsPayment.ITEMS_PAYMENT)
+                .values(items)
+                .execute() == 1;
     }
 
     public ItemsUsersPOJO updateItem(ItemsUsersPOJO item) throws UpdateException {
@@ -47,7 +55,7 @@ public class ItemUserRepository {
                 .into(ItemsUsersPOJO.class);
     }
 
-    public boolean deleteItem(Long id){
+    public boolean deleteItem(Long id) {
         return context
                 .delete(jooq.generated.tables.ItemsPayment.ITEMS_PAYMENT)
                 .where(jooq.generated.tables.ItemsPayment.ITEMS_PAYMENT.ID.eq(id)).execute() == 1;

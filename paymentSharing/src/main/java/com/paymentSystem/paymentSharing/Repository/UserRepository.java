@@ -23,6 +23,11 @@ public class UserRepository {
         return context.selectFrom(USERS).fetch().into(UserPOJO.class);
     }
 
+    public List<UserPOJO> getUsers(List<Long> usersId) {
+        return context.selectFrom(USERS).where(USERS.ID.in(usersId)).fetch().into(UserPOJO.class);
+    }
+
+
     public UserPOJO addUser(String firstName, String secondName, Long telegramId) throws InsertException {
         return context
                 .insertInto(USERS)

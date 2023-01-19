@@ -29,8 +29,14 @@ public class ItemUserController {
 
     @PostMapping
     public ItemsUsersPOJO addItemUser(@RequestBody ItemsUsersPOJO item) throws InsertException {
-        return itemUserService.addItemUser(item.getPaymentId(), item.getUserId());
+        return itemUserService.addItemUser(item.getId_item(), item.getUserId());
     }
+
+    @PostMapping("/list")
+    public boolean addItemUsers(@RequestBody List<ItemsUsersPOJO> items) throws InsertException {
+        return itemUserService.addItemUsers(items);
+    }
+
 
     @PutMapping
     public ItemsUsersPOJO updateItemUser(@RequestBody ItemsUsersPOJO item) throws UpdateException {

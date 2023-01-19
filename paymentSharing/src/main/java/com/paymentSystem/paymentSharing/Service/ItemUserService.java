@@ -28,6 +28,10 @@ public class ItemUserService {
         return itemUserRepository.addItemUser(paymentId, userId);
     }
 
+    public boolean addItemUsers(List<ItemsUsersPOJO> items) throws InsertException {
+        return itemUserRepository.addItemUsers(items);
+    }
+
     public ItemsUsersPOJO updateItemUser(ItemsUsersPOJO item) throws UpdateException {
         return itemUserRepository.updateItem(item);
     }

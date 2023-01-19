@@ -11,8 +11,8 @@ public class ItemsUsersPOJO {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "ID_PAYMENT")
-    private Long paymentId;
+    @Column(name = "id_item")
+    private Long id_item;
 
     @Column(name = "USER_ID")
     private Long userId;

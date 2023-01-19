@@ -13,6 +13,9 @@
             <sqlFile path="changeset/init/create-items_users-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="2-bil-table" author="Nikita P.">
+        <sqlFile path="changeset/historyBil/create-history_bil-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 
 </databaseChangeLog>
