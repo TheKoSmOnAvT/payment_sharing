@@ -27,6 +27,14 @@ public class UserRepository {
         return context.selectFrom(USERS).where(USERS.ID.in(usersId)).fetch().into(UserPOJO.class);
     }
 
+    public UserPOJO getUsers(Long usersId) {
+        var user = context.selectFrom(USERS).where(USERS.ID.eq(usersId)).fetchOne();
+        if (user == null) {
+            return null;
+        }
+        return user.into(UserPOJO.class);
+    }
+
 
     public UserPOJO addUser(String firstName, String secondName, Long telegramId) throws InsertException {
         return context
@@ -51,7 +59,7 @@ public class UserRepository {
                 .into(UserPOJO.class);
     }
 
-    public boolean deleteUser(Long id){
+    public boolean deleteUser(Long id) {
         return context
                 .delete(USERS)
                 .where(USERS.ID.eq(id)).execute() == 1;
