@@ -1,5 +1,23 @@
 version: '2.4'
 services:
+  backend:
+    image: java_api_auth
+    restart: always
+    build:
+      context: ./paymentServer
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=${DATABASE_URL}
+      - SPRING_DATASOURCE_USERNAME=${DATABASE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+      - telegram-bot_token=${TELEGRAM_TOKEN}
+      - telegram-bot_name=${TELEGRAM_NAME}
+
   postgres:
     image: postgres:14-alpine
     restart: always
